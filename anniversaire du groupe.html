@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>🎉 Anniversaire du Groupe 🎉</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+      background: url("logo.png") no-repeat center center/cover; /* Mets ton logo ici */
+    }
+
+    /* Effet flou */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+      z-index: -1;
+    }
+
+    header {
+      padding: 30px 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    h1 {
+      font-size: 2.2em;
+    }
+
+    h2 {
+      font-size: 1.2em;
+      font-weight: normal;
+    }
+
+    .date {
+      margin-top: 10px;
+      font-size: 1.1em;
+      background: rgba(255,255,255,0.2);
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      animation: pulse 2s infinite;
+    }
+
+    /* Compte à rebours */
+    .countdown {
+      margin: 20px auto;
+      font-size: 1.5em;
+      font-weight: bold;
+      background: gold;
+      color: black;
+      padding: 10px 20px;
+      border-radius: 15px;
+      display: inline-block;
+      animation: bounce 1.5s infinite;
+    }
+
+    .message {
+      margin: 30px auto;
+      max-width: 600px;
+      font-size: 1em;
+      line-height: 1.6;
+    }
+
+    .important {
+      font-size: 1.2em;
+      font-weight: bold;
+      background: gold;
+      color: black;
+      padding: 8px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    /* Zone du chat */
+    .chat-container {
+      max-width: 600px;
+      margin: 30px auto;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .chat-box {
+      max-height: 300px;
+      overflow-y: auto;
+      padding: 10px;
+      text-align: left;
+    }
+
+    .msg {
+      margin: 10px;
+      padding: 10px 15px;
+      border-radius: 15px;
+      display: inline-block;
+      max-width: 70%;
+      clear: both;
+    }
+
+    .user {
+      background: #25d366;
+      float: right;
+      color: white;
+    }
+
+    .bot {
+      background: #ececec;
+      float: left;
+      color: black;
+    }
+
+    .chat-input {
+      display: flex;
+      margin-top: 10px;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 20px;
+      border: none;
+      outline: none;
+    }
+
+    .chat-input button {
+      background: #25d366;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      margin-left: 10px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    footer {
+      margin: 40px 0 20px;
+      font-size: 0.9em;
+      opacity: 0.8;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {from{opacity:0;}to{opacity:1;}}
+    @keyframes pulse {0%{transform:scale(1);}50%{transform:scale(1.1);}100%{transform:scale(1);}}
+    @keyframes bounce {0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎊 Joyeux Anniversaire au Groupe  : <strong>La Voie de l'Excelence | 2è Eo / ASIFIWA</strong>  🎊</h1>
+    <h2>1 an déjà ensemble, ça se fête !</h2>
+    <div class="date">📅 21 Mars</div>
+    <div class="countdown" id="countdown"></div>
+  </header>
+
+  <div class="message">
+    <p>Chers membres, notre groupe célèbre son <strong>1er anniversaire</strong> 🎂.  
+    Ce sera une journée spéciale avec des surprises, de la joie et des bons souvenirs.</p>
+
+    <p class="important">👉 Chaque membre doit préparer 3$ à donner aux administrateurs pour la préparation de l’événement.</p>
+  </div>
+
+  <!-- Zone du ChatBENGZ -->
+  <div class="chat-container">
+    <h3>💬 ChatBENGZ</h3>
+    <div class="chat-box" id="chat-box"></div>
+    <div class="chat-input">
+      <input type="text" id="user-input" placeholder="Écris ta question...">
+      <button onclick="sendMessage()">Envoyer</button>
+    </div>
+  </div>
+
+  <footer>
+    Créé avec ❤️ pour notre groupe par l’équipe des admins.
+  </footer>
+
+  <script>
+    // ====== Compte à rebours ======
+    const eventDate = new Date("March 21, 2026 00:00:00").getTime();
+    const countdownEl = document.getElementById("countdown");
+
+    setInterval(() => {
+      const now = new Date().getTime();
+      const diff = eventDate - now;
+
+      const days = Math.floor(diff / (1000*60*60*24));
+      const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+      const seconds = Math.floor((diff % (1000*60)) / 1000);
+
+      countdownEl.innerHTML = `${days}j ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
+
+    // ====== ChatBENGZ ======
+    const chatBox = document.getElementById("chat-box");
+
+    function sendMessage() {
+      const input = document.getElementById("user-input");
+      const text = input.value.trim();
+      if (text === "") return;
+
+      appendMessage(text, "user");
+      input.value = "";
+
+      setTimeout(() => {
+        appendMessage(botReply(text), "bot");
+      }, 800);
+    }
+
+    function appendMessage(text, sender) {
+      const msg = document.createElement("div");
+      msg.classList.add("msg", sender);
+      msg.textContent = text;
+      chatBox.appendChild(msg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function botReply(question) {
+      question = question.toLowerCase();
+
+      if (question.includes("quand") || question.includes("date")) {
+        return "📅 L'anniversaire est prévu pour le 21 mars.";
+      } else if (question.includes("combien") || question.includes("prix")) {
+        return "💵 Chaque membre doit contribuer 3$ pour la fête.";
+      } else if (question.includes("où") || question.includes("lieu")) {
+        return "📍 Le lieu sera communiqué bientôt par les administrateurs.";
+      } else if (question.includes("qui")) {
+        return "👥 Les administrateurs gèrent l’organisation.";
+      } else if (question.includes("surprise")) {
+        return "🎁 Patience... il y aura des surprises spéciales le jour J !";
+      } else {
+        return "🤖 Je suis ChatBENGZ, je peux répondre sur la date, la contribution, et les infos de l’anniversaire.";
+      }
+    }
+  </script>
+
+</body>
+</html>
